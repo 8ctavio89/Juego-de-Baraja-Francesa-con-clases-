@@ -37,6 +37,8 @@ def genera_lista_cartas():
                 valor = "K"
             elif j == 14:
                 valor = "A"
+            else:
+                valor = str(j)
             carta_nueva = Carta(figura, valor)
             lista_cartas.append(carta_nueva)
         return lista_cartas
