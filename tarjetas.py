@@ -3,10 +3,11 @@ class Jugador:
     mano = None
     puntuacion = None
 
-    def __init__(self, nombre):
+    def __init__(self, nombre,baraja):
         self.nombre = nombre
         self.mano = []
         self.puntuacion = 0
+        baraja.guarda_jugador(self)
 
     def despliega_mano(self):
         print(self.nombre)
@@ -35,7 +36,7 @@ class Baraja:
     lista_jugadores = None
 
     def __init__(self, lista_cartas):
-        # El método Genera_litsa_cartas() debe de hacer la lista de 52 cartas
+        # El método Genera_lista_cartas() debe de hacer la lista de 52 cartas
         self.diccionario_cartas = {
             "2": 2,
             "3": 3,
@@ -56,7 +57,7 @@ class Baraja:
         self.lista_jugadores = []
 
     # def genera_mano (self):
-    # debe llamar a guarda_jugador al terminar o crear otra funcion que lo haga
+    # debe asignar una mano aleatoriamente a cada uno de los jugadores de la lista
 
     def guarda_jugador(self, jugador):
         self.lista_jugadores.append(jugador)
