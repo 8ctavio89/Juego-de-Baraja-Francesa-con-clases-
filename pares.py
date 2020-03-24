@@ -25,35 +25,27 @@ def genera_lista_cartas():
             figura = "T"
         elif i == 3:
             figura = "D"
-        for j in range(2,15):
-            if j == 11:
-                valor = "J"
-            elif j == 12:
-                valor = "Q"
-            elif j == 13:
-                valor = "K"
-            elif j == 14:
-                valor = "A"
-            else:
-                valor = str(j)
+        for valor in range(2,15):
+            if valor == 14:
+                valor = 20
             carta_nueva = tarjetas.Carta(valor, figura)
             lista_cartas.append(carta_nueva)
     return lista_cartas
 
-def main(lista_jugadores, mano):
-    if len(lista_jugadores) == 2:  # Tienen que ser solo dos jugadores
+def main(jugadores, mano):
+    if len(jugadores) == 2:  # Tienen que ser solo dos jugadores
         lista_cartas = genera_lista_cartas()
         for i in lista_cartas:
             print(i)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-j', '--lista_jugadores', dest='lista_jugadores',
+    parser.add_argument('-j', '--jugadores', dest='jugadores',
                         help="Nombre del jugador.", required=True, action="append")
     parser.add_argument('-m', '--mano', dest='mano',
                         help="Tamaño de mano", required=True)
     args = parser.parse_args()
-    lista_jugadores = args.lista_jugadores
+    jugadores = args.jugadores
     mano = args.mano
 
-    main(lista_jugadores, mano)
+    main(jugadores, mano)
