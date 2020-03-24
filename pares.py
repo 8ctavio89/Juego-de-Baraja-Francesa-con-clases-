@@ -9,8 +9,6 @@
 ''' Juego de Baraja Francesa con Clases '''
 import argparse
 import tarjetas
-import itertools
-import random
 
 
 def genera_lista_cartas():
@@ -38,13 +36,15 @@ def genera_lista_cartas():
                 valor = "A"
             else:
                 valor = str(j)
-            carta_nueva = Carta(valor, figura)
+            carta_nueva = tarjetas.Carta(valor, figura)
             lista_cartas.append(carta_nueva)
     return lista_cartas
 
 def main(lista_jugadores, mano):
     if len(lista_jugadores) == 2:  # Tienen que ser solo dos jugadores
-
+        lista_cartas = genera_lista_cartas()
+        for i in lista_cartas:
+            print(i)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
