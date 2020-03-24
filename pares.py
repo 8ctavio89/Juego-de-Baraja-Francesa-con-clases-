@@ -18,7 +18,7 @@ def genera_lista_cartas():
         y regresa una lista de estas
     '''
     lista_cartas = list()
-    for i in range(0,3):
+    for i in range(0,4):
         if i == 0:
             figura = "C"
         elif i == 1:
@@ -27,7 +27,7 @@ def genera_lista_cartas():
             figura = "T"
         elif i == 3:
             figura = "D"
-        for j in range(2,14):
+        for j in range(2,15):
             if j == 11:
                 valor = "J"
             elif j == 12:
@@ -38,7 +38,7 @@ def genera_lista_cartas():
                 valor = "A"
             else:
                 valor = str(j)
-            carta_nueva = Carta(figura, valor)
+            carta_nueva = Carta(valor, figura)
             lista_cartas.append(carta_nueva)
     return lista_cartas
 
