@@ -39,6 +39,7 @@ def genera_lista_cartas():
                 valor = "A"
             carta_nueva = Carta(figura, valor)
             lista_cartas.append(carta_nueva)
+        return lista_cartas
 
 def main(lista_jugadores, mano):
     if len(lista_jugadores) == 2:  # Tienen que ser solo dos jugadores
