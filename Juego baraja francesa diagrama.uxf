@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>550</y>
+      <x>90</x>
+      <y>490</y>
       <w>210</w>
       <h>170</h>
     </coordinates>
@@ -20,8 +20,8 @@ Jugador.__init__</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>290</x>
-      <y>60</y>
+      <x>80</x>
+      <y>0</y>
       <w>220</w>
       <h>210</h>
     </coordinates>
@@ -43,8 +43,8 @@ despliega_mano()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>580</x>
-      <y>60</y>
+      <x>370</x>
+      <y>0</y>
       <w>210</w>
       <h>190</h>
     </coordinates>
@@ -65,8 +65,8 @@ __str__</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>880</x>
-      <y>60</y>
+      <x>670</x>
+      <y>0</y>
       <w>440</w>
       <h>240</h>
     </coordinates>
@@ -90,8 +90,8 @@ guarda_jugador(jugador)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>400</y>
+      <x>400</x>
+      <y>340</y>
       <w>150</w>
       <h>30</h>
     </coordinates>
@@ -101,8 +101,8 @@ guarda_jugador(jugador)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>400</y>
+      <x>290</x>
+      <y>340</y>
       <w>130</w>
       <h>210</h>
     </coordinates>
@@ -112,8 +112,8 @@ guarda_jugador(jugador)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>750</x>
-      <y>400</y>
+      <x>540</x>
+      <y>340</y>
       <w>130</w>
       <h>30</h>
     </coordinates>
@@ -123,30 +123,30 @@ guarda_jugador(jugador)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>400</y>
-      <w>170</w>
+      <x>650</x>
+      <y>340</y>
+      <w>200</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Carta.__init__(valor,figura)</panel_attributes>
+    <panel_attributes>Carta.__init__(self,valor,figura)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>450</y>
-      <w>450</w>
+      <x>400</x>
+      <y>390</y>
+      <w>480</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Baraja.__init__(diccionario_cartas,figuras, lista_cartas,lista_jugadores)</panel_attributes>
+    <panel_attributes>Baraja.__init__(self,diccionario_cartas,figuras, lista_cartas,lista_jugadores)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>450</y>
+      <x>290</x>
+      <y>390</y>
       <w>130</w>
       <h>180</h>
     </coordinates>
@@ -154,33 +154,21 @@ guarda_jugador(jugador)</panel_attributes>
     <additional_attributes>110.0;10.0;50.0;10.0;50.0;160.0;10.0;160.0</additional_attributes>
   </element>
   <element>
-    <id>Text</id>
-    <coordinates>
-      <x>1080</x>
-      <y>450</y>
-      <w>220</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>(lista_jugadores empieza vacía)
-style=wordwrap</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>510</y>
-      <w>220</w>
+      <x>400</x>
+      <y>450</y>
+      <w>240</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Jugador.__init__ (nombre,mano)</panel_attributes>
+    <panel_attributes>Jugador.__init__ (self,nombre,mano)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>510</y>
+      <x>290</x>
+      <y>450</y>
       <w>130</w>
       <h>140</h>
     </coordinates>
@@ -190,41 +178,41 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>840</x>
-      <y>570</y>
-      <w>210</w>
+      <x>680</x>
+      <y>450</y>
+      <w>240</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Baraja.guarda_jugador (jugador)</panel_attributes>
+    <panel_attributes>Baraja.guarda_jugador (self,jugador)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>570</y>
-      <w>100</w>
+      <x>630</x>
+      <y>450</y>
+      <w>70</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>570</y>
-      <w>160</w>
+      <x>400</x>
+      <y>510</y>
+      <w>180</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Baraja.genera_mano ()</panel_attributes>
+    <panel_attributes>Baraja.genera_mano (self)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>570</y>
+      <x>290</x>
+      <y>510</y>
       <w>130</w>
       <h>100</h>
     </coordinates>
@@ -234,8 +222,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>570</x>
-      <y>490</y>
+      <x>360</x>
+      <y>430</y>
       <w>310</w>
       <h>30</h>
     </coordinates>
@@ -246,8 +234,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1060</x>
-      <y>570</y>
+      <x>590</x>
+      <y>510</y>
       <w>470</w>
       <h>30</h>
     </coordinates>
@@ -258,8 +246,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>620</y>
+      <x>400</x>
+      <y>560</y>
       <w>290</w>
       <h>30</h>
     </coordinates>
@@ -269,8 +257,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>900</x>
-      <y>620</y>
+      <x>690</x>
+      <y>560</y>
       <w>490</w>
       <h>30</h>
     </coordinates>
@@ -281,8 +269,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>620</y>
+      <x>290</x>
+      <y>560</y>
       <w>130</w>
       <h>70</h>
     </coordinates>
@@ -292,8 +280,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>670</y>
+      <x>400</x>
+      <y>610</y>
       <w>220</w>
       <h>30</h>
     </coordinates>
@@ -303,8 +291,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>670</y>
+      <x>290</x>
+      <y>610</y>
       <w>130</w>
       <h>30</h>
     </coordinates>
@@ -314,31 +302,31 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>900</x>
-      <y>670</y>
-      <w>180</w>
+      <x>670</x>
+      <y>610</y>
+      <w>200</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Jugador.despliega_mano()</panel_attributes>
+    <panel_attributes>Jugador.despliega_mano(self)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>820</x>
-      <y>670</y>
-      <w>100</w>
+      <x>610</x>
+      <y>610</y>
+      <w>80</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1260</x>
-      <y>670</y>
-      <w>480</w>
+      <x>1060</x>
+      <y>610</y>
+      <w>470</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>(despliega la mano de los jugadores de lista_jugadores y su puntuación)
@@ -348,8 +336,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>720</y>
+      <x>400</x>
+      <y>660</y>
       <w>180</w>
       <h>30</h>
     </coordinates>
@@ -359,8 +347,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>690</y>
+      <x>290</x>
+      <y>630</y>
       <w>130</w>
       <h>60</h>
     </coordinates>
@@ -370,8 +358,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>800</x>
-      <y>720</y>
+      <x>590</x>
+      <y>660</y>
       <w>420</w>
       <h>30</h>
     </coordinates>
@@ -382,30 +370,30 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1160</x>
-      <y>670</y>
-      <w>100</w>
+      <x>940</x>
+      <y>610</y>
+      <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Carta.__str__</panel_attributes>
+    <panel_attributes>Carta.__str__(self)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>670</y>
-      <w>110</w>
+      <x>860</x>
+      <y>610</y>
+      <w>100</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>600</x>
-      <y>380</y>
+      <x>390</x>
+      <y>320</y>
       <w>210</w>
       <h>30</h>
     </coordinates>
