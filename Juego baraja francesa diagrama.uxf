@@ -375,7 +375,7 @@ style=wordwrap</panel_attributes>
       <w>200</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>Carta.__str__(self,dict_cartas)</panel_attributes>
+    <panel_attributes>Carta.display(self,dict_cartas)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
