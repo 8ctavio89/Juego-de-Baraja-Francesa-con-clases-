@@ -34,6 +34,10 @@ def genera_lista_cartas():
 
     return lista_cartas
 
+def genera_jugadores(lista_jugadores,baraja):
+    for nombre in lista_jugadores:
+        nombre = tarjetas.Jugador(nombre,baraja)
+
 def desplegar_cartas(lista_cartas):
     '''
         imprime cada carta de una lista de cartas
@@ -41,20 +45,20 @@ def desplegar_cartas(lista_cartas):
     for carta in lista_cartas:
         print(carta)
 
+def despliega_lista_manos(baraja):
+    for jugador in baraja.lista_jugadores:
+        jugador.despliega_mano(baraja)
+
 
 def main(jugadores, mano):
-    if (len(jugadores) == 2 and mano <= 26):  # Tienen que ser solo dos jugadores y la mano menor a 52
-        nombre_jugador1 = jugadores[0]
-        nombre_jugador2 = jugadores[1]
+    if (len(jugadores) >= 2 and (len(jugadores))*mano <= 52):  # Tienen que ser solo dos jugadores y la mano menor a 52
         lista_cartas = genera_lista_cartas()
         baraja = tarjetas.Baraja(lista_cartas)
         #print(baraja)
-        jugador1 = tarjetas.Jugador(nombre_jugador1, baraja)
-        jugador2 = tarjetas.Jugador(nombre_jugador2, baraja)
-        jugador1.mano = baraja.genera_mano(mano)
-        jugador2.mano = baraja.genera_mano(mano)
-        jugador1.despliega_mano(baraja)
-        jugador2.despliega_mano(baraja)
+        genera_jugadores(jugadores,baraja)
+        baraja.genera_mano(mano)
+        despliega_lista_manos(baraja)
+
 
 
 if __name__ == "__main__":
