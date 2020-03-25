@@ -69,10 +69,11 @@ class Baraja:
     def genera_mano(self, num_cartas):
         # debe asignar una mano aleatoriamente a cada uno de los jugadores de la lista
         # Se genera una nueva lista de cartas revueltas con la cantidad de la mano
-        cartas_revueltas = random.sample(self.lista_cartas, num_cartas)
-        for carta in cartas_revueltas:      # Se elimina las cartas usadas por el jugador en la lista vieja
-            self.lista_cartas.remove(carta)
-        return cartas_revueltas
+        for jugador in self.lista_jugadores:
+            jugador.mano = random.sample(self.lista_cartas, num_cartas)
+            for carta in jugador.mano:      # Se elimina las cartas usadas por el jugador en la lista vieja
+                self.lista_cartas.remove(carta)
+
 
     def guarda_jugador(self, jugador):
         self.lista_jugadores.append(jugador)
