@@ -34,19 +34,27 @@ def genera_lista_cartas():
 
     return lista_cartas
 
+def desplegar_cartas(lista_cartas):
+    '''
+        imprime cada carta de una lista de cartas
+    '''
+    for carta in lista_cartas:
+        print(carta)
+
 
 def main(jugadores, mano):
     if (len(jugadores) == 2 and mano <= 26):  # Tienen que ser solo dos jugadores y la mano menor a 52
         nombre_jugador1 = jugadores[0]
         nombre_jugador2 = jugadores[1]
         lista_cartas = genera_lista_cartas()
-        print("Son", len(lista_cartas), "cartas")
-        for i in lista_cartas:
-            print(i)
         baraja = tarjetas.Baraja(lista_cartas)
-        print(baraja)
+        #print(baraja)
         jugador1 = tarjetas.Jugador(nombre_jugador1, baraja)
         jugador2 = tarjetas.Jugador(nombre_jugador2, baraja)
+        jugador1.mano = baraja.genera_mano(mano)
+        jugador2.mano = baraja.genera_mano(mano)
+        jugador1.despliega_mano(baraja)
+        jugador2.despliega_mano(baraja)
 
 
 if __name__ == "__main__":
@@ -54,7 +62,7 @@ if __name__ == "__main__":
     parser.add_argument('-j', '--jugadores', dest='jugadores',
                         help="Nombre del jugador.", required=True, action="append")
     parser.add_argument('-m', '--mano', dest='mano',
-                        help="Tamaño de mano", required=True)
+                        help="Tamaño de mano", type = int, required=True)
     args = parser.parse_args()
     jugadores = args.jugadores
     mano = args.mano
