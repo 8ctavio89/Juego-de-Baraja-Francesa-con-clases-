@@ -24,7 +24,7 @@ class Jugador:
             cartas = f"{carta.display(baraja.diccionario_cartas)}"
             print(cartas)
             cartas_mano.append(cartas)
-
+            #Aquí había una línea de puntuación
 
         returns = cartas_mano
         return returns
