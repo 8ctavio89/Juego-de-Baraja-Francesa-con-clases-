@@ -19,13 +19,13 @@ def genera_lista_cartas():
     lista_cartas = list()
     for i in range(0, 4):
         if i == 0:
-            figura = "C"  # Corazones
+            figura = "♥"  # Corazones
         elif i == 1:
-            figura = "P"  # Picas
+            figura = "♠"  # Picas
         elif i == 2:
-            figura = "T"  # Trébol
+            figura = "♣"  # Trébol
         elif i == 3:
-            figura = "D"  # Diamante
+            figura = "♦"  # Diamante
         for valor in range(2, 15):  # los valores de las cartas empiezan en 2
             if valor == 14:
                 valor = 20  # As vale 20
@@ -54,25 +54,49 @@ def desplegar_cartas(lista_cartas):
         print(carta)
 
 
-def despliega_lista_manos(baraja):
+def despliega_lista_manos(baraja, mano):
     '''
         imprime las cartas de todos los jugadores
         recibe: objeto baraja
     '''
+
+    i = 0
+    dic = {}
+    lista_diccionarios = []
     for jugador in baraja.lista_jugadores:
-        jugador.despliega_mano(baraja)
+        lista_valores = []
+        cartas_mano = jugador.despliega_mano(baraja)
+        print("\nPuntuación: ")
+        for index in range(0, mano):
+            valores = (baraja.lista_jugadores[i].mano[index].valor)
+
+            lista_valores.append(valores)
+
+        i += 1
+        dic = {i:lista_valores.count(i) for i in lista_valores}
+        print(dic)
+        lista_diccionarios.append(dic)
+
+    return lista_diccionarios
 
 
 def main(jugadores, mano):
-    # Tienen que ser solo dos jugadores y la mano menor a 52
-    if (len(jugadores) >= 2 and (len(jugadores))*mano <= 52):
-        lista_cartas = genera_lista_cartas() # crea una lista de todas las cartas sin repetir
-        baraja = tarjetas.Baraja(lista_cartas) # se le asigna a baraja la lista de cartas
-        # print(baraja)                      # haha yes
-        genera_jugadores(jugadores, baraja) # crea los jugadores en el objeto baraja
-        baraja.genera_mano(mano)  # reparte las cartas a los jugadores
-        despliega_lista_manos(baraja) # imprime las manos de los jugadores
-        print(baraja.lista_jugadores[0].mano[0].valor)  # ejemplo de como obtener el valor de una carta
+    lista_cartas = genera_lista_cartas()
+
+    if (len(jugadores) >= 2 and (
+    len(jugadores)) * mano <= 52):  # Tienen que ser solo dos jugadores y la mano menor a 52
+        print("\n== JUEGO DE BARAJA FRANCESA ==\n")
+        baraja = tarjetas.Baraja(lista_cartas)
+        genera_jugadores(jugadores, baraja)
+        baraja.genera_mano(mano)
+        despliega_lista_manos(baraja, mano)
+
+        #puntuacion(jugadores, baraja)
+    else:
+        print(
+            "\nLa cantidad de cartas repartidas por jugador debe de ser acorde al número de cartas disponible en la baraja.\n")
+        print("Cantidad solicitada: " + str(mano * len(jugadores)))
+        print("Total de cartas disponibles: " + str(len(lista_cartas)) + "\n")
 
 
 if __name__ == "__main__":

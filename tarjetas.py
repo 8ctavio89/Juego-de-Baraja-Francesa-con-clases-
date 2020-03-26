@@ -17,12 +17,17 @@ class Jugador:
             imprime la mano de un jugador
             recibe: un objeto baraja
         '''
-        print(self.nombre)
-        print("----------")
+        cartas_mano = []
+        print("\nJugador: " + self.nombre)
+        print("--------------------\n")
         for carta in self.mano:
-            print(f"{carta.display(baraja.diccionario_cartas)}")
-        print(f"Puntuacion: {self.puntuacion}")
+            cartas = f"{carta.display(baraja.diccionario_cartas)}"
+            print(cartas)
+            cartas_mano.append(cartas)
 
+
+        returns = cartas_mano
+        return returns
 
 class Carta:
     valor = None
@@ -76,11 +81,12 @@ class Baraja:
             Se genera una nueva lista de cartas revueltas con la cantidad de la mano
         '''
         # debe asignar una mano aleatoriamente a cada uno de los jugadores de la lista
+
         for jugador in self.lista_jugadores:
             jugador.mano = random.sample(self.lista_cartas, num_cartas)
-            for carta in jugador.mano:      # Se elimina las cartas usadas por el jugador en la lista vieja
-                self.lista_cartas.remove(carta)
 
+            for carta in jugador.mano:  # Se elimina las cartas usadas por el jugador en la lista vieja
+                self.lista_cartas.remove(carta)
 
     def guarda_jugador(self, jugador):
         self.lista_jugadores.append(jugador)
