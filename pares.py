@@ -85,7 +85,7 @@ def despliega_lista_manos(baraja, mano):
         print("\nPuntuación: " + str(puntuacion))
         lista_puntajes.append(puntuacion)
 
-    print(lista_puntaje)
+    print(lista_puntajes)
     return lista_diccionarios
 
 def puntaje(lista_diccionarios):
