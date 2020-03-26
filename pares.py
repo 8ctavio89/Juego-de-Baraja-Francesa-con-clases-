@@ -59,14 +59,13 @@ def despliega_lista_manos(baraja, mano):
         imprime las cartas de todos los jugadores
         recibe: objeto baraja
     '''
-
+    lista_puntajes = []
     i = 0
     dic = {}
     lista_diccionarios = []
     for jugador in baraja.lista_jugadores:
         lista_valores = []
         cartas_mano = jugador.despliega_mano(baraja)
-        print("\nPuntuación: ")
         for index in range(0, mano):
             valores = (baraja.lista_jugadores[i].mano[index].valor)
 
@@ -74,11 +73,37 @@ def despliega_lista_manos(baraja, mano):
 
         i += 1
         dic = {i:lista_valores.count(i) for i in lista_valores}
-        print(dic)
-        lista_diccionarios.append(dic)
 
+        lista_puntaje = []
+        for key, value in dic.items():
+            temp = [key, value]
+            lista_puntaje.append(temp)
+
+        lista_diccionarios.append(lista_puntaje)
+
+        puntuacion = (puntaje(lista_puntaje))
+        print("\nPuntuación: " + str(puntuacion))
+        lista_puntajes.append(puntuacion)
+
+    print(lista_puntaje)
     return lista_diccionarios
 
+def puntaje(lista_diccionarios):
+    lista_puntaje = []
+    puntaje = 0
+    i = 0
+
+    for elemento in lista_diccionarios:
+        if elemento[1] >= 2:
+            lista_puntaje.append(elemento)
+
+
+            for carta in lista_puntaje:
+                carta = lista_puntaje[i]
+                puntaje += carta[0]*carta[1]
+                i += 1
+
+    return puntaje
 
 def main(jugadores, mano):
     lista_cartas = genera_lista_cartas()
@@ -103,8 +128,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-j', '--jugadores', dest='jugadores',
                         help="Nombre del jugador.", required=True, action="append")
-    parser.add_argument('-m', '--mano', dest='mano',
-                        help="Tamaño de mano", type=int, required=True)
+    parser.add_argument('-m', '--mano', dest='mano', default = 5,
+                        help="Tamaño de mano", type=int, required=False)
     args = parser.parse_args()
     jugadores = args.jugadores
     mano = args.mano
