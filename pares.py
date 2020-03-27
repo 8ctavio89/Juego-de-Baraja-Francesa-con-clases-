@@ -63,9 +63,12 @@ def despliega_lista_manos(baraja, mano):
     i = 0
     dic = {}
     lista_diccionarios = []
+    lista_jugadores = []
     for jugador in baraja.lista_jugadores:
         lista_valores = []
         cartas_mano = jugador.despliega_mano(baraja)
+        nombre_jugador = (baraja.lista_jugadores[i].nombre)
+        lista_jugadores.append(nombre_jugador)
         for index in range(0, mano):
             valores = (baraja.lista_jugadores[i].mano[index].valor)
 
@@ -81,29 +84,43 @@ def despliega_lista_manos(baraja, mano):
 
         lista_diccionarios.append(lista_puntaje)
 
-        puntuacion = (puntaje(lista_puntaje))
-        print("\nPuntuación: " + str(puntuacion))
-        lista_puntajes.append(puntuacion)
+        puntuacion = (puntaje(lista_puntaje)[0])
+        pares = (puntaje(lista_puntaje)[1])
+        trios = (puntaje(lista_puntaje)[2])
 
+        print("Cantidad de pares: " + str(pares))
+        print("Cantidad de trios: " + str(trios))
+        lista_puntajes.append(puntuacion)
+        print("\nPuntuación: " + str(puntuacion))
     print(lista_puntajes)
+    zipp = list(zip(lista_jugadores, lista_puntajes))
+    print(zipp)
     return lista_diccionarios
 
+#OctavioLovesLists
+
 def puntaje(lista_diccionarios):
+
     lista_puntaje = []
     puntaje = 0
     i = 0
+    cantidad_pares = 0
+    cantidad_trios = 0
 
     for elemento in lista_diccionarios:
         if elemento[1] >= 2:
             lista_puntaje.append(elemento)
-
+            if elemento[1] == 2:
+                cantidad_pares += 1
+            if elemento[1] == 3:
+                cantidad_trios += 1
 
             for carta in lista_puntaje:
                 carta = lista_puntaje[i]
                 puntaje += carta[0]*carta[1]
                 i += 1
 
-    return puntaje
+    return puntaje, cantidad_pares, cantidad_trios
 
 def main(jugadores, mano):
     lista_cartas = genera_lista_cartas()
@@ -128,8 +145,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-j', '--jugadores', dest='jugadores',
                         help="Nombre del jugador.", required=True, action="append")
-    parser.add_argument('-m', '--mano', dest='mano', default = 5,
-                        help="Tamaño de mano", type=int, required=False)
+    parser.add_argument('-m', '--mano', dest='mano',
+                        help="Tamaño de mano", type=int, required=False, default=5)
     args = parser.parse_args()
     jugadores = args.jugadores
     mano = args.mano
