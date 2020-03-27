@@ -68,11 +68,12 @@ def despliega_lista_manos(baraja, mano):
         lista_valores = []
         cartas_mano = jugador.despliega_mano(baraja)
         nombre_jugador = (baraja.lista_jugadores[i].nombre)
-        lista_jugadores.append(nombre_jugador)
+
         for index in range(0, mano):
             valores = (baraja.lista_jugadores[i].mano[index].valor)
 
             lista_valores.append(valores)
+
 
         i += 1
         dic = {i:lista_valores.count(i) for i in lista_valores}
@@ -88,14 +89,29 @@ def despliega_lista_manos(baraja, mano):
         pares = (puntaje(lista_puntaje)[1])
         trios = (puntaje(lista_puntaje)[2])
 
-        print("Cantidad de pares: " + str(pares))
+        print("\nCantidad de pares: " + str(pares))
         print("Cantidad de trios: " + str(trios))
-        lista_puntajes.append(puntuacion)
-        print("\nPuntuación: " + str(puntuacion))
-    print(lista_puntajes)
-    zipp = list(zip(lista_jugadores, lista_puntajes))
-    print(zipp)
-    return lista_diccionarios
+
+        tupla_jugadores = []
+        tupla_jugadores.append(nombre_jugador)
+        tupla_jugadores.append(puntuacion)
+        tupla_jugadores.append(pares)
+        tupla_jugadores.append(trios)
+
+        lista_puntajes.append(tuple(tupla_jugadores))
+
+
+
+        print("\nPuntuación: " + str(puntuacion) + " puntos")
+
+    jugador_ganador = ganador(lista_puntajes)
+
+    if(len(jugador_ganador) != 0):
+        print("\nGanador: " + str(jugador_ganador[0][0]) + ", con " + str(jugador_ganador[0][1]) + " puntos, " + str(jugador_ganador[0][2]) + " pare(s) y " + str(jugador_ganador[0][3]) + " trios.")
+    else:
+        print("\nEmpate.")
+
+    return lista_diccionarios, lista_puntajes
 
 #OctavioLovesLists
 
@@ -103,9 +119,9 @@ def puntaje(lista_diccionarios):
 
     lista_puntaje = []
     puntaje = 0
-    i = 0
     cantidad_pares = 0
     cantidad_trios = 0
+    index = -1
 
     for elemento in lista_diccionarios:
         if elemento[1] >= 2:
@@ -114,13 +130,40 @@ def puntaje(lista_diccionarios):
                 cantidad_pares += 1
             if elemento[1] == 3:
                 cantidad_trios += 1
+            index += 1
 
-            for carta in lista_puntaje:
-                carta = lista_puntaje[i]
-                puntaje += carta[0]*carta[1]
-                i += 1
+            for carta in range(len(lista_puntaje)-index):
+                cartas = lista_puntaje[index]
+                puntaje += cartas[0]*cartas[1]
+
 
     return puntaje, cantidad_pares, cantidad_trios
+
+def ganador(lista_puntajes):
+    ganador = []
+
+    for jugador in lista_puntajes:
+        if (len(ganador) == 0):
+            if(jugador[1] != 0):
+                ganador.append(jugador)
+        elif(jugador[1] > 0):
+            if (jugador[2] == ganador[0][2] or jugador[3] == ganador[0][3]) and (jugador[1] > ganador[0][1]):
+                ganador = jugador
+
+            if(jugador[2] == 2) and (ganador[0][3] == 1):
+                ganador = jugador
+
+            if(jugador[3] == 1) and (ganador[0][2] == 1):
+                ganador = ganador
+
+            if(jugador[2] == 1) and (ganador[0][3] == 1):
+                ganador = jugador
+
+            if(jugador[2] == 2) and (ganador[0][2] == 1):
+                ganador = jugador
+
+
+    return ganador
 
 def main(jugadores, mano):
     lista_cartas = genera_lista_cartas()
@@ -133,7 +176,7 @@ def main(jugadores, mano):
         baraja.genera_mano(mano)
         despliega_lista_manos(baraja, mano)
 
-        #puntuacion(jugadores, baraja)
+
     else:
         print(
             "\nLa cantidad de cartas repartidas por jugador debe de ser acorde al número de cartas disponible en la baraja.\n")
