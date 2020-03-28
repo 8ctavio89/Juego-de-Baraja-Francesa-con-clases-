@@ -77,7 +77,7 @@ def despliega_lista_manos(baraja, mano):
 
         i += 1
         dic = {i:lista_valores.count(i) for i in lista_valores}
-        dic1 = {k: v for k, v in sorted(dic.items(), key=lambda item: item[1], reverse= True)}
+
         lista_puntaje = []
         for key, value in dic.items():
             temp = [key, value]
@@ -101,13 +101,13 @@ def despliega_lista_manos(baraja, mano):
         lista_puntajes.append(tuple(tupla_jugadores))
 
 
-        print(dic1)
+
         print("\nPuntuación: " + str(puntuacion) + " puntos")
 
-    jugador_ganador = list((ganador(lista_puntajes)))
+    jugador_ganador = list(ganador(lista_puntajes))
+
     if(len(jugador_ganador) != 0):
-        ganante = "\nGanador: " + str(jugador_ganador[0]) + ", con " + str(jugador_ganador[1]) + " puntos, " + str(jugador_ganador[2]) + " pare(s) y " + str(jugador_ganador[3]) + " trio(s)."
-        print(ganante)
+        print("\nGanador: " + str(jugador_ganador[0][0]) + ", con " + str(jugador_ganador[0][1]) + " puntos, " + str(jugador_ganador[0][2]) + " pare(s) y " + str(jugador_ganador[0][3]) + " trios.")
     else:
         print("\nEmpate.")
 
@@ -126,9 +126,9 @@ def puntaje(lista_diccionarios):
     for elemento in lista_diccionarios:
         if elemento[1] >= 2:
             lista_puntaje.append(elemento)
-            if elemento[1] % 2 == 0:
+            if elemento[1] == 2:
                 cantidad_pares += 1
-            if elemento[1] % 3 == 0:
+            if elemento[1] == 3:
                 cantidad_trios += 1
             index += 1
 
@@ -140,47 +140,52 @@ def puntaje(lista_diccionarios):
     return puntaje, cantidad_pares, cantidad_trios
 
 def ganador(lista_puntajes):
-    ganador = () #En teoria, aquí se hace un append del que, supuestamente, es el jugador con las mejores características para ganar.
-    '''
-        Los índices dentro de lista_puntajes son:
-        [0] = Nombre del jugador.
-        [1] = Puntaje del jugador.
-        [2] = Número de pares del jugador.
-        [3] = Número de tríos del jugador.
-    '''
-    for jugador in lista_puntajes: #Entra al ciclo, tupla por tupla (con la información de cada jugador). Ejemplo: (Octavio, 40, 2, 0)
-        if (len(ganador) == 0): #Si la lista ganador está vacía entra a este if.
-            if(jugador[1] != 0): #Omite los puntajes con cero. Si no tiene puntaje, no tiene ni pares ni trios. Se descarta.
-                ganador = jugador#Si sí cumple se hace un append para que la lista ganador no esté vacía.
 
-        elif(jugador[1] > 0): #Aquí, si el jugador en cuestión, dado por el ciclo, su puntaje es mayor a cero, entonces se empieza a comparar con el jugaddor que está en lista ganador (ahí siempre va a haber un solo jugador).
+    ganador = list()
 
-            if (jugador[2] == ganador[0][2] or jugador[3] == ganador[0][3]) and (jugador[1] > ganador[0][1] or ganador[0][1]>jugador[1]):
-                '''
-                    Si el número de pares del jugador y el ganador coincide o el número de trios de ambos sujetos es igual,  indica empate.  Solamente entrará al if si el puntaje del jugador
-                    es mayor que el del ganador. 
-                '''
-                ganador = jugador
+    for jugador in lista_puntajes:
+        if (len(ganador) == 0):
+            if(jugador[1] != 0):
+                ganador.append(jugador)
+        elif(jugador[1] > 0):
+            if (jugador[2] == ganador[0][2] or jugador[3] == ganador[0][3]) and (jugador[1] > ganador[0][1] or ganador[0][1] > jugador[1]):
 
 
-            elif(jugador[2] > ((ganador[3]))):
+                if(jugador[3] == 1) and (ganador[0][2] == 1):
+                    ganador = list()
+                    ganador.append(jugador)
 
-                '''
-                    Si el número de pares del jugador es igual a dos y el número de trios del ganador es igual a uno, entonces jugador se convierte en el nuevo ganador.
-                '''
-                ganador = jugador
+                if(jugador[2] > ganador[0][2]):
+                    ganador = list()
+                    ganador.append(jugador)
 
-            elif(jugador[3] == 1) and (ganador[0][2] == 1):
-                ganador = jugador
-
-            elif(jugador[2] == 1) and (ganador[0][3] == 1):
-                ganador = jugador
-
-            elif(jugador[2] == 2) and (ganador[0][2] == 1):
-                ganador = jugador
+                if(jugador[2] == 1) and (ganador[0][3] == 1):
+                    ganador = list()
+                    ganador.append(jugador)
 
 
-    return (ganador)
+                if(ganador[0][3] < jugador[3]) and (jugador[2] < ganador[0][2]):
+                    ganador = list()
+                    ganador.append(jugador)
+
+
+                if(jugador[2] == 2) and (ganador[0][2] == 1):
+                    ganador = list()
+                    ganador.append(jugador)
+
+                if (jugador[3] == ganador[0][3]):
+                    if(jugador[1] > ganador[0][1]):
+                        ganador = list()
+                        ganador.append(jugador)
+                    
+                if(ganador[0][1] > jugador[1]):
+                    ganador = list(ganador)
+
+                if (jugador[1] > ganador[0][1]) and (ganador[0][3] == 0):
+                    ganador = list()
+                    ganador.append(jugador)
+
+    return ganador
 
 def main(jugadores, mano):
     lista_cartas = genera_lista_cartas()
