@@ -74,16 +74,17 @@ def despliega_lista_manos(baraja, mano):
 
             lista_valores.append(valores)
 
-        i += 1
-        dic = {i: lista_valores.count(i) for i in lista_valores}
 
+        i += 1
+        dic = {i:lista_valores.count(i) for i in lista_valores}
+        dic1 = {k: v for k, v in sorted(dic.items(), key=lambda item: item[1], reverse= True)}
         lista_puntaje = []
         for key, value in dic.items():
             temp = [key, value]
             lista_puntaje.append(temp)
 
         lista_diccionarios.append(lista_puntaje)
-        #print(lista_puntaje[1])
+
         puntuacion = (puntaje(lista_puntaje)[0])
         pares = (puntaje(lista_puntaje)[1])
         trios = (puntaje(lista_puntaje)[2])
@@ -99,27 +100,22 @@ def despliega_lista_manos(baraja, mano):
 
         lista_puntajes.append(tuple(tupla_jugadores))
 
+
+        print(dic1)
         print("\nPuntuación: " + str(puntuacion) + " puntos")
 
-    jugador_ganador = ganador(lista_puntajes)
-
+    jugador_ganador = (ganador(lista_puntajes))
     if(len(jugador_ganador) != 0):
-        print("\nGanador: " + str(jugador_ganador[0][0]) + ", con " + str(jugador_ganador[0][1]) + " puntos, " + str(
-            jugador_ganador[0][2]) + " pare(s) y " + str(jugador_ganador[0][3]) + " trios.")
+        ganante = "\nGanador: " + str(jugador_ganador[0][0]) + ", con " + str(jugador_ganador[0][1]) + " puntos, " + str(jugador_ganador[0][2]) + " pare(s) y " + str(jugador_ganador[0][3]) + " trio(s)."
+        print(ganante)
     else:
         print("\nEmpate.")
 
     return lista_diccionarios, lista_puntajes
 
-# OctavioLovesLists
-
+#OctavioLovesLists
 
 def puntaje(lista_diccionarios):
-    '''
-        Calcula el puntaje
-        recibe: lista de diccionarios
-        regresa una lista: puntaje, cantidad de pares, cantidad de tercias
-    '''
 
     lista_puntaje = []
     puntaje = 0
@@ -128,12 +124,11 @@ def puntaje(lista_diccionarios):
     index = -1
 
     for elemento in lista_diccionarios:
-        valor = elemento[1]
-        if valor >= 2:
+        if elemento[1] >= 2:
             lista_puntaje.append(elemento)
-            if valor == 2:
+            if elemento[1] % 2 == 0:
                 cantidad_pares += 1
-            if valor == 3:
+            if elemento[1] % 3 == 0:
                 cantidad_trios += 1
             index += 1
 
@@ -141,86 +136,67 @@ def puntaje(lista_diccionarios):
                 cartas = lista_puntaje[index]
                 puntaje += cartas[0]*cartas[1]
 
+
     return puntaje, cantidad_pares, cantidad_trios
 
-
 def ganador(lista_puntajes):
-    ganador = []
+    ganador = [] #En teoria, aquí se hace un append del que, supuestamente, es el jugador con las mejores características para ganar.
+    '''
+        Los índices dentro de lista_puntajes son:
+        [0] = Nombre del jugador.
+        [1] = Puntaje del jugador.
+        [2] = Número de pares del jugador.
+        [3] = Número de tríos del jugador.
+    '''
+    for jugador in lista_puntajes: #Entra al ciclo, tupla por tupla (con la información de cada jugador). Ejemplo: (Octavio, 40, 2, 0)
+        if (len(ganador) == 0): #Si la lista ganador está vacía entra a este if.
+            if(jugador[1] != 0): #Omite los puntajes con cero. Si no tiene puntaje, no tiene ni pares ni trios. Se descarta.
+                ganador.append(jugador) #Si sí cumple se hace un append para que la lista ganador no esté vacía.
 
-    for jugador in lista_puntajes:
-        if (len(ganador) == 0):
-            if(jugador[1] != 0):
-                ganador.append(jugador)
-        elif(jugador[1] > 0):
+        elif(jugador[1] > 0): #Aquí, si el jugador en cuestión, dado por el ciclo, su puntaje es mayor a cero, entonces se empieza a comparar con el jugaddor que está en lista ganador (ahí siempre va a haber un solo jugador).
+
             if (jugador[2] == ganador[0][2] or jugador[3] == ganador[0][3]) and (jugador[1] > ganador[0][1]):
-                ganador = jugador
+                '''
+                    Si el número de pares del jugador y el ganador coincide o el número de trios de ambos sujetos es igual,  indica empate.  Solamente entrará al if si el puntaje del jugador
+                    es mayor que el del ganador. 
+                '''
+                ganador = [] #Si entra al if, se borra la información dentro de la lista ganador, y se hace un append con el "nuevo" ganador.
+                ganador = ganador.append(jugador)
 
-            if(jugador[2] == 2) and (ganador[0][3] == 1):
-                ganador = jugador
+            elif(jugador[2] == 2) and (ganador[0][3] == 1):
 
-            if(jugador[3] == 1) and (ganador[0][2] == 1):
-                ganador = ganador
+                '''
+                    Si el número de pares del jugador es igual a dos y el número de trios del ganador es igual a uno, entonces jugador se convierte en el nuevo ganador.
+                '''
+                ganador = []
+                ganador = ganador.append(jugador)
 
-            if(jugador[2] == 1) and (ganador[0][3] == 1):
-                ganador = jugador
+            elif(jugador[3] == 1) and (ganador[0][2] == 1):
+                ganador = []
+                ganador = ganador.append(jugador)
 
-            if(jugador[2] == 2) and (ganador[0][2] == 1):
-                ganador = jugador
+            elif(jugador[2] == 1) and (ganador[0][3] == 1):
+                ganador = []
+                ganador = ganador.append(jugador)
 
-    return ganador
+            elif(jugador[2] == 2) and (ganador[0][2] == 1):
+                ganador = []
+                ganador = ganador.append(jugador)
 
 
-def calcula_pares_trios(baraja):
-    '''
-        calcula el numero de pares y tercias que tienen los jugadores
-        recibe: objeto baraja
-        regresa: una lista = nombre del jugador, numero de pares, numero de tercias
-    '''
-    lista_jugadores = baraja.lista_jugadores
-    lista_pares_trios = list()
-    for jugador in lista_jugadores:  # se iteran todos los jugadores
-        nombre = jugador.nombre
-        mano = jugador.mano
-        mano_formato_limpio = list() # esta mano solo tiene valores, sin figuras
-
-        for carta in mano:
-            mano_formato_limpio.append(carta.valor)
-
-        dicc = dict.fromkeys(mano_formato_limpio, 0) # diccionario a partir de la mano
-
-        pares = 0
-        trios = 0
-        for carta in mano:          # se iteran las cartas de la mano de un jugador
-            valor = carta.valor
-            if dicc.get(valor) == 0:  # no existe
-                dicc[valor] = 1
-            elif dicc.get(valor) > 0:  # ya existe
-                dicc[valor] += 1
-
-        for key in dicc:     # calcular pares y trios
-            valor = dicc.get(key)   # valor del diccionario
-            if valor % 2 == 0:      # es par
-                pares += 1
-            elif valor % 3 == 0:    # es trio
-                trios += 1
-        lista = [nombre, pares, trios]
-        lista_pares_trios.append(lista)
-        del(dicc)
-
-    return lista_pares_trios
-
+    return (ganador)
 
 def main(jugadores, mano):
     lista_cartas = genera_lista_cartas()
 
     if (len(jugadores) >= 2 and (
-            len(jugadores)) * mano <= 52):  # Tienen que más de dos jugadores y la mano menor a 52
+    len(jugadores)) * mano <= 52):  # Tienen que ser solo dos jugadores y la mano menor a 52
         print("\n== JUEGO DE BARAJA FRANCESA ==\n")
         baraja = tarjetas.Baraja(lista_cartas)
         genera_jugadores(jugadores, baraja)
         baraja.genera_mano(mano)
         despliega_lista_manos(baraja, mano)
-        print(calcula_pares_trios(baraja))
+
 
     else:
         print(
