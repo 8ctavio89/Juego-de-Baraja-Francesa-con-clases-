@@ -183,8 +183,8 @@ def calcula_pares_trios(baraja):
         mano = jugador.mano
         mano_formato_limpio = list() # esta mano solo tiene valores, sin figuras
 
-        for valores in mano:
-            mano_formato_limpio.append(valores.valor)
+        for carta in mano:
+            mano_formato_limpio.append(carta.valor)
 
         dicc = dict.fromkeys(mano_formato_limpio, 0) # diccionario a partir de la mano
 
