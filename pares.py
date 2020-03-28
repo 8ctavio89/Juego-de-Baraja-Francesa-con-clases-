@@ -74,9 +74,8 @@ def despliega_lista_manos(baraja, mano):
 
             lista_valores.append(valores)
 
-
         i += 1
-        dic = {i:lista_valores.count(i) for i in lista_valores}
+        dic = {i: lista_valores.count(i) for i in lista_valores}
 
         lista_puntaje = []
         for key, value in dic.items():
@@ -84,7 +83,7 @@ def despliega_lista_manos(baraja, mano):
             lista_puntaje.append(temp)
 
         lista_diccionarios.append(lista_puntaje)
-
+        #print(lista_puntaje[1])
         puntuacion = (puntaje(lista_puntaje)[0])
         pares = (puntaje(lista_puntaje)[1])
         trios = (puntaje(lista_puntaje)[2])
@@ -100,22 +99,27 @@ def despliega_lista_manos(baraja, mano):
 
         lista_puntajes.append(tuple(tupla_jugadores))
 
-
-
         print("\nPuntuación: " + str(puntuacion) + " puntos")
 
     jugador_ganador = ganador(lista_puntajes)
 
     if(len(jugador_ganador) != 0):
-        print("\nGanador: " + str(jugador_ganador[0][0]) + ", con " + str(jugador_ganador[0][1]) + " puntos, " + str(jugador_ganador[0][2]) + " pare(s) y " + str(jugador_ganador[0][3]) + " trios.")
+        print("\nGanador: " + str(jugador_ganador[0][0]) + ", con " + str(jugador_ganador[0][1]) + " puntos, " + str(
+            jugador_ganador[0][2]) + " pare(s) y " + str(jugador_ganador[0][3]) + " trios.")
     else:
         print("\nEmpate.")
 
     return lista_diccionarios, lista_puntajes
 
-#OctavioLovesLists
+# OctavioLovesLists
+
 
 def puntaje(lista_diccionarios):
+    '''
+        Calcula el puntaje
+        recibe: lista de diccionarios
+        regresa una lista: puntaje, cantidad de pares, cantidad de tercias
+    '''
 
     lista_puntaje = []
     puntaje = 0
@@ -124,11 +128,12 @@ def puntaje(lista_diccionarios):
     index = -1
 
     for elemento in lista_diccionarios:
-        if elemento[1] >= 2:
+        valor = elemento[1]
+        if valor >= 2:
             lista_puntaje.append(elemento)
-            if elemento[1] == 2:
+            if valor == 2:
                 cantidad_pares += 1
-            if elemento[1] == 3:
+            if valor == 3:
                 cantidad_trios += 1
             index += 1
 
@@ -136,8 +141,8 @@ def puntaje(lista_diccionarios):
                 cartas = lista_puntaje[index]
                 puntaje += cartas[0]*cartas[1]
 
-
     return puntaje, cantidad_pares, cantidad_trios
+
 
 def ganador(lista_puntajes):
     ganador = []
@@ -162,20 +167,60 @@ def ganador(lista_puntajes):
             if(jugador[2] == 2) and (ganador[0][2] == 1):
                 ganador = jugador
 
-
     return ganador
+
+
+def calcula_pares_trios(baraja):
+    '''
+        calcula el numero de pares y tercias que tienen los jugadores
+        recibe: objeto baraja
+        regresa: una lista = nombre del jugador, numero de pares, numero de tercias
+    '''
+    lista_jugadores = baraja.lista_jugadores
+    lista_pares_trios = list()
+    for jugador in lista_jugadores:  # se iteran todos los jugadores
+        nombre = jugador.nombre
+        mano = jugador.mano
+        mano_formato_limpio = list() # esta mano solo tiene valores, sin figuras
+
+        for valores in mano:
+            mano_formato_limpio.append(valores.valor)
+
+        dicc = dict.fromkeys(mano_formato_limpio, 0) # diccionario a partir de la mano
+
+        pares = 0
+        trios = 0
+        for carta in mano:          # se iteran las cartas de la mano de un jugador
+            valor = carta.valor
+            if dicc.get(valor) == 0:  # no existe
+                dicc[valor] = 1
+            elif dicc.get(valor) > 0:  # ya existe
+                dicc[valor] += 1
+
+        for key in dicc:     # calcular pares y trios
+            valor = dicc.get(key)   # valor del diccionario
+            if valor % 2 == 0:      # es par
+                pares += 1
+            elif valor % 3 == 0:    # es trio
+                trios += 1
+        lista = [nombre, pares, trios]
+        lista_pares_trios.append(lista)
+        del(dicc)
+
+    return lista_pares_trios
+
 
 def main(jugadores, mano):
     lista_cartas = genera_lista_cartas()
 
     if (len(jugadores) >= 2 and (
-    len(jugadores)) * mano <= 52):  # Tienen que ser solo dos jugadores y la mano menor a 52
+            len(jugadores)) * mano <= 52):  # Tienen que más de dos jugadores y la mano menor a 52
         print("\n== JUEGO DE BARAJA FRANCESA ==\n")
         baraja = tarjetas.Baraja(lista_cartas)
         genera_jugadores(jugadores, baraja)
         baraja.genera_mano(mano)
         despliega_lista_manos(baraja, mano)
-
+        print(calcula_pares_trios(baraja))
 
     else:
         print(
